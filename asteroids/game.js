@@ -54,6 +54,7 @@
   Game.prototype.step = function() {
     this.move();
     this.checkCollisions();
+    this.expireBullets();
     this.draw();
   };
 
@@ -72,12 +73,21 @@
 
   Game.prototype.checkCollisions = function() {
     var game = this;
+
+    // Ship smacks into asteroid?
     this.asteroids.forEach( function(asteroid) {
       if (asteroid.isCollidedWith(game.ship)) {
         game.stop();
         alert("You dead.");
       };
     });
+
+    // Asteroids blasted to HELL?!?!?!
+    this.bullets.forEach ( function(bullet) {
+      bullet.hitAsteroids(game);
+    });
+
+    this.bullets = _.compact(this.bullets);
   };
 
   Game.prototype.bindKeyHandlers = function() {
@@ -101,4 +111,26 @@
     }
   };
 
+  Game.prototype.removeBullet = function(bullet) {
+    var i = this.bullets.indexOf(bullet);
+    this.bullets[i] = undefined;
+  };
+
+  Game.prototype.removeAsteroid = function(asteroid) {
+    var i = this.asteroids.indexOf(asteroid);
+    this.asteroids[i] = undefined;
+    this.asteroids = _.compact(this.asteroids);
+  };
+
+  Game.prototype.expireBullets = function() {
+    for (var i = 0; i < this.bullets.length; i++) {
+      var bullet = this.bullets[i];
+
+      if (Date.now() - bullet.startTime > 500) {
+        this.removeBullet(bullet);
+      };
+    };
+
+    this.bullets = _.compact(this.bullets);
+  };
 })(this);
