@@ -1,9 +1,3 @@
-Function.prototype.inherits = function (BaseClass) {
-  function Surrogate () {};
-  Surrogate.prototype = BaseClass.prototype;
-  this.prototype = new Surrogate();
-};
-
 (function(root) {
   var A = root.A = (root.A || {});
 
