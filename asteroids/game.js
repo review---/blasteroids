@@ -7,6 +7,8 @@
     this.ship = new A.Ship();
     this.bullets = [];
     this.intervalID;
+    this.elapsedTime = 0;
+    this.points = 0
   };
 
   Game.DIM_X = 500;
@@ -37,6 +39,12 @@
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(c);
     };
+
+    // show pointage and the current time
+    this.ctx.fillStyle = "black";
+    this.ctx.font = "" + 12+"pt Helvetica ";
+    this.ctx.fillText("Time: " + this.elapsedTime, 400,450);
+    this.ctx.fillText("Points: " + this.score(), 400,475);
   };
 
   Game.prototype.move = function() {
@@ -55,7 +63,9 @@
     this.move();
     this.checkCollisions();
     this.expireBullets();
+    this.elapsedTime++;
     this.draw();
+    this.checkForWin();
   };
 
   Game.prototype.start = function(n) {
@@ -120,6 +130,7 @@
     var i = this.asteroids.indexOf(asteroid);
     this.asteroids[i] = undefined;
     this.asteroids = _.compact(this.asteroids);
+    this.points += 200;
   };
 
   Game.prototype.expireBullets = function() {
@@ -133,4 +144,16 @@
 
     this.bullets = _.compact(this.bullets);
   };
+
+  Game.prototype.checkForWin = function() {
+    if (this.asteroids.length === 0) {
+      this.stop();
+      alert("You Win! Final Score: " + this.score());
+    };
+  };
+
+  Game.prototype.score = function() {
+    return this.points - this.elapsedTime;
+  };
+
 })(this);

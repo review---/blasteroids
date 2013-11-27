@@ -19,7 +19,6 @@
     xVel = Math.random() * 3 * negateX;
     yVel = Math.random() * 3 * negateY;
 
-
     return new Asteroid([x, y], [xVel, yVel]);
   };
 
