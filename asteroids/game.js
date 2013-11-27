@@ -9,10 +9,12 @@
     this.intervalID;
     this.elapsedTime = 0;
     this.points = 0
+    this.img = new Image();
+    this.img.src = 'background.jpeg';
   };
 
-  Game.DIM_X = 500;
-  Game.DIM_Y = 500;
+  Game.DIM_X = 800;
+  Game.DIM_Y = 800;
   Game.FPS = 30;
   Game.SPEED = 0.5
 
@@ -26,6 +28,9 @@
     console.log(this);
     var c = this.ctx;
     c.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+
+    // draw background
+    this.ctx.drawImage(this.img, -500, -200);
 
     // draw ship
     this.ship.draw(c);
@@ -41,10 +46,18 @@
     };
 
     // show pointage and the current time
-    this.ctx.fillStyle = "black";
+    this.ctx.fillStyle = "white";
     this.ctx.font = "" + 12+"pt Helvetica ";
-    this.ctx.fillText("Time: " + this.elapsedTime, 400,450);
-    this.ctx.fillText("Points: " + this.score(), 400,475);
+    this.ctx.fillText(
+      "Time: " + this.elapsedTime,
+      A.Game.DIM_X - 100,
+      A.Game.DIM_Y - 50
+    );
+    this.ctx.fillText(
+      "Points: " + this.score(),
+       A.Game.DIM_X - 100,
+       A.Game.DIM_Y - 25
+     );
   };
 
   Game.prototype.move = function() {

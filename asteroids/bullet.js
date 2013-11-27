@@ -2,10 +2,10 @@
   var A = root.A = (root.A || {});
 
   var Bullet = A.Bullet = function(pos, dir) {
-    var SPEED = 30;
+    var SPEED = 50;
     var vel = [dir[0] * SPEED , dir[1] * SPEED];
 
-    A.MovingObject.call(this, pos, vel, 4, "");
+    A.MovingObject.call(this, pos, vel, 3, "");
 
     this.startTime = Date.now();
   };

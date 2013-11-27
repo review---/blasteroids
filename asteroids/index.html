@@ -7,7 +7,7 @@
 
 <body>
 
-  <canvas width="500" height="500"></canvas>
+  <canvas></canvas>
 
   <script type="application/javascript" src="keymaster.js"></script>
   <script type="application/javascript"
@@ -21,8 +21,10 @@
 
   <script>
     var canvas = document.getElementsByTagName("canvas")[0];
+    canvas.setAttribute('width', A.Game.DIM_X);
+    canvas.setAttribute('height', A.Game.DIM_Y);
     var g = new A.Game(canvas.getContext('2d'));
-    g.start(7);
+    g.start(10);
   </script>
 
 </body>

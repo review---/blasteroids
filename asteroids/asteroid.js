@@ -1,8 +1,8 @@
 (function(root) {
   var A = root.A = (root.A || {});
 
-  var Asteroid = A.Asteroid = function(pos, vel) {
-    A.MovingObject.call(this, pos, vel, 15, "aquamarine");
+  var Asteroid = A.Asteroid = function(pos, vel, radius) {
+    A.MovingObject.call(this, pos, vel, radius, "aquamarine");
   };
 
   Asteroid.inherits(A.MovingObject);
@@ -19,7 +19,9 @@
     xVel = Math.random() * 3 * negateX;
     yVel = Math.random() * 3 * negateY;
 
-    return new Asteroid([x, y], [xVel, yVel]);
+    var radius = Math.random() * 30 + 5;
+
+    return new Asteroid([x, y], [xVel, yVel], radius);
   };
 
 })(this);
