@@ -1,13 +1,7 @@
-Function.prototype.inherits = function (BaseClass) {
-  function Surrogate () {};
-  Surrogate.prototype = BaseClass.prototype;
-  this.prototype = new Surrogate();
-};
-
 (function(root) {
-
   var Asteroids = root.Asteroids = (root.Asteroids || {});
-  var MovingObject = Asteroids.MovingObjects = function (pos, vel, rad, color) {
+
+  var MovingObject = Asteroids.MovingObject = function (pos, vel, rad, color) {
     this.pos = pos;
     this.vel = vel;
     // stupid naming to shrink line
