@@ -19,8 +19,12 @@ Function.prototype.inherits = function (BaseClass) {
     x = Math.random() * A.Game.DIM_X;
     y = Math.random() * A.Game.DIM_Y;
     // Write better random velocities later...
-    xVel = Math.random() * 10;
-    yVel = Math.random() * 10;
+    var negateX = Math.random() > 0.5 ? 1 : -1;
+    var negateY = Math.random() > 0.5 ? 1 : -1;
+
+    xVel = Math.random() * 3 * negateX;
+    yVel = Math.random() * 3 * negateY;
+
 
     return new Asteroid([x, y], [xVel, yVel]);
   };
