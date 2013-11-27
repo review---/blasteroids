@@ -11,6 +11,7 @@
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
   Game.FPS = 30;
+  Game.SPEED = 0.5
 
   Game.prototype.addAsteroids = function(n) {
     for (var i = 0; i < n; i++) {
@@ -47,7 +48,7 @@
   };
 
   Game.prototype.start = function(n) {
-    // magic???
+    this.bindKeyHandlers();
     this.addAsteroids(n);
     this.intervalID = window.setInterval(
       this.step.bind(this),
@@ -67,6 +68,15 @@
         alert("You dead.");
       };
     });
+  };
+
+  Game.prototype.bindKeyHandlers = function() {
+    var game = this
+
+    key('w, up', function() { return game.ship.power([ 0,-Game.SPEED]); });
+    key('a, left', function() { return game.ship.power([-Game.SPEED, 0]); });
+    key('s, down', function() { return game.ship.power([ 0, Game.SPEED]); });
+    key('d, right', function() { return game.ship.power([ Game.SPEED, 0]); });
   };
 
 })(this);
