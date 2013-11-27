@@ -4,6 +4,8 @@
   var Game = A.Game = function(ctx) {
     this.ctx = ctx;
     this.asteroids = [];
+    this.ship = new A.Ship();
+    this.intervalID;
   };
 
   Game.DIM_X = 500;
@@ -21,12 +23,18 @@
     var c = this.ctx;
     c.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
+    // draw ship
+    this.ship.draw(c);
+
+    // draw asteroids
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(c);
     };
   };
 
   Game.prototype.move = function() {
+    this.ship.move();
+
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].move();
     };
@@ -34,14 +42,31 @@
 
   Game.prototype.step = function() {
     this.move();
+    this.checkCollisions();
     this.draw();
   };
 
   Game.prototype.start = function(n) {
     // magic???
     this.addAsteroids(n);
-    window.setInterval(this.step.bind(this), (1000 / Game.FPS));
-  }
+    this.intervalID = window.setInterval(
+      this.step.bind(this),
+      (1000 / Game.FPS)
+    );
+  };
 
+  Game.prototype.stop = function() {
+    window.clearInterval(this.intervalID);
+  };
+
+  Game.prototype.checkCollisions = function() {
+    var game = this;
+    this.asteroids.forEach( function(asteroid) {
+      if (asteroid.isCollidedWith(game.ship)) {
+        game.stop();
+        alert("You dead.");
+      };
+    });
+  };
 
 })(this);
