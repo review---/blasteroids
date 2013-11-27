@@ -17,5 +17,17 @@
     this.vel[1] += impulse[1];
   };
 
+  Ship.prototype.fireBullet = function() {
+    if (_.all(this.vel, function(el) { return el === 0; })) {
+      return null;
+    };
+
+    var x = this.vel[0];
+    var y = this.vel[1];
+    var speed = Math.sqrt((x * x) + (y * y));
+    var dir = [(x / speed), (y / speed)];
+
+    return (new A.Bullet(_.clone(this.pos), dir));
+  };
 
 })(this);

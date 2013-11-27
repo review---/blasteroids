@@ -5,6 +5,7 @@
     this.ctx = ctx;
     this.asteroids = [];
     this.ship = new A.Ship();
+    this.bullets = [];
     this.intervalID;
   };
 
@@ -27,6 +28,11 @@
     // draw ship
     this.ship.draw(c);
 
+    // draw bullets
+    for (var i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].draw(c);
+    };
+
     // draw asteroids
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(c);
@@ -35,6 +41,10 @@
 
   Game.prototype.move = function() {
     this.ship.move();
+
+    for (var i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].move();
+    };
 
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].move();
@@ -73,10 +83,22 @@
   Game.prototype.bindKeyHandlers = function() {
     var game = this
 
-    key('w, up', function() { return game.ship.power([ 0,-Game.SPEED]); });
-    key('a, left', function() { return game.ship.power([-Game.SPEED, 0]); });
-    key('s, down', function() { return game.ship.power([ 0, Game.SPEED]); });
-    key('d, right', function() { return game.ship.power([ Game.SPEED, 0]); });
+    // movement
+    key('w, up', function() { game.ship.power([ 0,-Game.SPEED]); });
+    key('a, left', function() { game.ship.power([-Game.SPEED, 0]); });
+    key('s, down', function() { game.ship.power([ 0, Game.SPEED]); });
+    key('d, right', function() { game.ship.power([ Game.SPEED, 0]); });
+
+    // pew, pew, pew
+    key('space', function() { game.fireBullet(); });
+  };
+
+  Game.prototype.fireBullet = function() {
+    var bullet = this.ship.fireBullet();
+
+    if (bullet) {
+     this.bullets.push(bullet);
+    }
   };
 
 })(this);
