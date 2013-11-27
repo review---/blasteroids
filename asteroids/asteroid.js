@@ -5,20 +5,20 @@ Function.prototype.inherits = function (BaseClass) {
 };
 
 (function(root) {
-  var Asteroids = root.Asteroids = (root.Asteroids || {});
+  var A = root.A = (root.A || {});
 
-  var Asteroid = Asteroids.Asteroid = function(pos, vel) {
-    Asteroids.MovingObject.call(this, pos, vel, 50, "aquamarine");
+  var Asteroid = A.Asteroid = function(pos, vel) {
+    A.MovingObject.call(this, pos, vel, 15, "aquamarine");
   };
 
-  Asteroid.inherits(Asteroids.MovingObject);
+  Asteroid.inherits(A.MovingObject);
 
   Asteroid.randomAsteroid = function() {
     var x, y, xVel, yVel;
-    // should have class constants for the canvas size
-    // we'll figure it out when we get to game
-    x = Math.random() * 500;
-    y = Math.random() * 500;
+
+    x = Math.random() * A.Game.DIM_X;
+    y = Math.random() * A.Game.DIM_Y;
+    // Write better random velocities later...
     xVel = Math.random() * 10;
     yVel = Math.random() * 10;
 

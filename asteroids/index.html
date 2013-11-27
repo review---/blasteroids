@@ -1,14 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 
-<head>ASTEROIDS</head>
+<head>
+  <title>ASTEROIDS</title>
+</head>
 
 <body>
-  <div id="content">
-  </div>
+
+  <canvas width="500" height="500"></canvas>
 
   <script type="application/javascript" src="moving_object.js"></script>
   <script type="application/javascript" src="asteroid.js"></script>
+  <script type="application/javascript" src="game.js"></script>
+  <script>
+    var canvas = document.getElementsByTagName("canvas")[0];
+    var g = new A.Game(canvas.getContext('2d'));
+    g.start(1);
+  </script>
 
 </body>
 </html>

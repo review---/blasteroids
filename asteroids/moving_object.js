@@ -1,7 +1,7 @@
 (function(root) {
-  var Asteroids = root.Asteroids = (root.Asteroids || {});
+  var A = root.A = (root.A || {});
 
-  var MovingObject = Asteroids.MovingObject = function (pos, vel, rad, color) {
+  var MovingObject = A.MovingObject = function (pos, vel, rad, color) {
     this.pos = pos;
     this.vel = vel;
     // stupid naming to shrink line
@@ -10,9 +10,10 @@
   };
 
   MovingObject.prototype.move = function() {
-    // be sure that vel units are sane.
     this.pos[0] += this.vel[0];
+    this.pos[0] %= A.Game.DIM_X;
     this.pos[1] += this.vel[1];
+    this.pos[1] %= A.Game.DIM_Y
   };
 
   MovingObject.prototype.draw = function(ctx) {
