@@ -1,0 +1,19 @@
+.group:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+canvas {
+  float: left;
+}
+
+.instructions {
+  float: left;
+  margin: 20px;
+  font-family: sans-serif;
+}
+
+.instructions > h1 {
+  text-transform: uppercase;
+}
